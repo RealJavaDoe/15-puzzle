@@ -131,7 +131,7 @@ public class FifteenPuzzle extends JFrame {
 		this.language = language;
 		this.numberDisplay = numberDisplay;
 		createWorkbook();
-		getText(this.language);
+		getText(language);
 	}
 
 	public void createWorkbook() {
