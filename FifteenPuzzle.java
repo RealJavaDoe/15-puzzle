@@ -20,6 +20,7 @@ import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 import javax.swing.plaf.ButtonUI;
 import javax.swing.plaf.basic.BasicButtonUI;
+import javax.swing.plaf.basic.BasicLabelUI;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableColumn;
 
@@ -37,7 +38,7 @@ import org.json.simple.parser.ParseException;
 /**
  * @author Jean-Pierre PEIFFER
  * @edition 2019
- * @version 2.01
+ * @version 2.02
  * 
  *          This code works fine with Windows 10 and Java 10
  * 
@@ -68,7 +69,7 @@ public class FifteenPuzzle extends JFrame {
 	private static final Font FONT_2 = new Font("Arial", Font.BOLD, 32);
 	private static final Font FONT_3 = new Font("Arial", Font.BOLD, 16);
 	private static final int ROW_HEIGHT = 25;
-	private static final String NAME = "15-puzzle | version 2.01";
+	private static final String NAME = "15-puzzle | version 2.02";
 	private static final String[] FILE = { "C:/15-puzzle/data/scores.xls", "C:/15-puzzle/images/stock1",
 			"C:/15-puzzle/images/stock1/image", "C:/15-puzzle/images/stock2", "C:/15-puzzle/images/stock2/image",
 			"C:/15-puzzle/lan/all.json" };
@@ -76,11 +77,12 @@ public class FifteenPuzzle extends JFrame {
 			"C:/15-puzzle/audio/color.wav", "C:/15-puzzle/audio/highscores.wav", "C:/15-puzzle/audio/sound.wav",
 			"C:/15-puzzle/audio/scramble.wav", "C:/15-puzzle/audio/thumbnail.wav", "C:/15-puzzle/audio/blocked.wav",
 			"C:/15-puzzle/audio/move.wav", "C:/15-puzzle/audio/end.wav", "C:/15-puzzle/audio/language.wav",
-			"C:/15-puzzle/audio/numberDisplay.wav" };
+			"C:/15-puzzle/audio/numberDisplay.wav", "C:/15-puzzle/audio/gridPattern.wav" };
 	private static final String[] IMAGE_FILE = { "C:/15-puzzle/images/buttons/random.png",
 			"C:/15-puzzle/images/buttons/list.png", "C:/15-puzzle/images/buttons/color.png",
-			"C:/15-puzzle/images/buttons/soundOn.png", "C:/15-puzzle/images/buttons/soundOff.png",
-			"C:/15-puzzle/images/buttons/scramble.png", "C:/15-puzzle/images/buttons/numberDisplay.png" };
+			"C:/15-puzzle/images/buttons/gridPattern.png", "C:/15-puzzle/images/buttons/soundOn.png",
+			"C:/15-puzzle/images/buttons/soundOff.png", "C:/15-puzzle/images/buttons/scramble.png",
+			"C:/15-puzzle/images/buttons/numberDisplay.png" };
 	private static final String[] LANGUAGE = { "EN", "FR", "ES", "IT", "DE" };
 	private Box[] box = new Box[4];
 	private Image croppedImage;
@@ -88,12 +90,12 @@ public class FifteenPuzzle extends JFrame {
 	private Image[] thumbnailImage = new Image[5];
 	private ImageIcon[] thumbnailIcon = new ImageIcon[5];
 	private JButton tileButton;
-	private JButton[] optionButton = new JButton[14];
+	private JButton[] optionButton = new JButton[15];
 	private JLabel emptyTileLabel;
 	private JLabel imageLabel;
 	private static JPanel container = new JPanel();
 	private JPanel[] panel = new JPanel[9];
-	private String[] text = new String[22];
+	private String[] text = new String[23];
 	int index;
 	int totalNumberOfImages;
 	int numberOfTheSelectedImage;
@@ -103,6 +105,7 @@ public class FifteenPuzzle extends JFrame {
 	int[] newOrder = new int[16];
 	boolean soundOn;
 	boolean color;
+	boolean gridPattern;
 	boolean numberDisplay;
 	int language;
 	int pictureFolder = 2;
@@ -120,7 +123,8 @@ public class FifteenPuzzle extends JFrame {
 
 	@SuppressWarnings("static-access")
 	public FifteenPuzzle(JPanel container, int[] thumbnailNumbers, int totalNumberOfImages, int index,
-			int numberOfTheSelectedImage, boolean soundOn, boolean color, int language, boolean numberDisplay) {
+			int numberOfTheSelectedImage, boolean soundOn, boolean color, boolean gridPattern, int language,
+			boolean numberDisplay) {
 		this.container = container;
 		this.thumbnailNumbers = thumbnailNumbers;
 		this.totalNumberOfImages = totalNumberOfImages;
@@ -128,6 +132,7 @@ public class FifteenPuzzle extends JFrame {
 		this.numberOfTheSelectedImage = numberOfTheSelectedImage;
 		this.soundOn = soundOn;
 		this.color = color;
+		this.gridPattern = gridPattern;
 		this.language = language;
 		this.numberDisplay = numberDisplay;
 		createWorkbook();
@@ -230,6 +235,8 @@ public class FifteenPuzzle extends JFrame {
 		panel[1].setPreferredSize(DIM_3);
 		panel[1].setBackground(COLOR_1);
 		imageLabel = new JLabel(new ImageIcon(FILE[pictureFolder] + numberOfTheSelectedImage + ".png"));
+		if (gridPattern)
+			imageLabel.setUI(new GridPattern());
 		panel[1].add(imageLabel);
 		panel[2] = new JPanel();
 		panel[2].setPreferredSize(DIM_4);
@@ -250,8 +257,8 @@ public class FifteenPuzzle extends JFrame {
 		optionButton[5].addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				int[] images = getRandomNumbers(totalNumberOfImages);
-				new FifteenPuzzle(container, images, totalNumberOfImages, 1, images[0], soundOn, color, language,
-						numberDisplay).display();
+				new FifteenPuzzle(container, images, totalNumberOfImages, 1, images[0], soundOn, color, gridPattern,
+						language, numberDisplay).display();
 				if (soundOn)
 					playSound(AUDIO_FILE[0]);
 			}
@@ -287,8 +294,8 @@ public class FifteenPuzzle extends JFrame {
 				if (soundOn)
 					playSound(AUDIO_FILE[2]);
 				int[] images = getRandomNumbers(totalNumberOfImages);
-				new FifteenPuzzle(container, images, totalNumberOfImages, 1, images[0], soundOn, color, language,
-						numberDisplay).display();
+				new FifteenPuzzle(container, images, totalNumberOfImages, 1, images[0], soundOn, color, gridPattern,
+						language, numberDisplay).display();
 			}
 		});
 		panel[5].add(optionButton[7]);
@@ -304,35 +311,42 @@ public class FifteenPuzzle extends JFrame {
 				if (soundOn)
 					playSound(AUDIO_FILE[3]);
 				if (imageScores.length == 0 || imageScores[0][0] == null) {
-					JOptionPane.showMessageDialog(null, text[15], text[19], JOptionPane.INFORMATION_MESSAGE);
+					JOptionPane.showMessageDialog(null, text[16], text[20], JOptionPane.INFORMATION_MESSAGE);
 					return;
 				} else
 					displayImageHighscores(imageScores);
 			}
 		});
 		panel[5].add(optionButton[8]);
+		optionButton[9] = new JButton(new ImageIcon(IMAGE_FILE[3]));
+		optionButton[9].setToolTipText(text[5]);
+		optionButton[9].setPreferredSize(DIM_6);
+		optionButton[9].setBackground(COLOR_2);
+		optionButton[9].setFont(FONT_1);
+		optionButton[9].setUI(new ButtonDesign());
+		optionButton[9].addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				if (soundOn)
+					playSound(AUDIO_FILE[12]);
+				if (gridPattern) {
+					panel[1].removeAll();
+					imageLabel = new JLabel(new ImageIcon(FILE[pictureFolder] + numberOfTheSelectedImage + ".png"));
+					panel[1].add(imageLabel);
+					container.validate();
+					gridPattern = false;
+				} else {
+					imageLabel.setUI(new GridPattern());
+					gridPattern = true;
+				}
+			}
+		});
+		panel[5].add(optionButton[9]);
 		panel[6] = new JPanel();
 		panel[6].setPreferredSize(DIM_9);
 		panel[6].setBackground(COLOR_1);
 		panel[7] = new JPanel();
 		panel[7].setPreferredSize(DIM_10);
 		panel[7].setBackground(COLOR_1);
-		optionButton[9] = new JButton(new ImageIcon(IMAGE_FILE[3]));
-		optionButton[9].setToolTipText(text[5]);
-		optionButton[9].setPreferredSize(DIM_6);
-		optionButton[9].setBackground(COLOR_2);
-		optionButton[9].setUI(new ButtonDesign());
-		optionButton[9].addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				soundOn = false;
-				panel[7].removeAll();
-				panel[7].add(optionButton[10]);
-				panel[7].add(optionButton[11]);
-				panel[7].add(optionButton[12]);
-				panel[7].add(optionButton[13]);
-				panel[7].validate();
-			}
-		});
 		optionButton[10] = new JButton(new ImageIcon(IMAGE_FILE[4]));
 		optionButton[10].setToolTipText(text[6]);
 		optionButton[10].setPreferredSize(DIM_6);
@@ -340,13 +354,12 @@ public class FifteenPuzzle extends JFrame {
 		optionButton[10].setUI(new ButtonDesign());
 		optionButton[10].addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				soundOn = true;
-				playSound(AUDIO_FILE[4]);
+				soundOn = false;
 				panel[7].removeAll();
-				panel[7].add(optionButton[9]);
 				panel[7].add(optionButton[11]);
 				panel[7].add(optionButton[12]);
 				panel[7].add(optionButton[13]);
+				panel[7].add(optionButton[14]);
 				panel[7].validate();
 			}
 		});
@@ -357,38 +370,55 @@ public class FifteenPuzzle extends JFrame {
 		optionButton[11].setUI(new ButtonDesign());
 		optionButton[11].addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				soundOn = true;
+				playSound(AUDIO_FILE[4]);
+				panel[7].removeAll();
+				panel[7].add(optionButton[10]);
+				panel[7].add(optionButton[12]);
+				panel[7].add(optionButton[13]);
+				panel[7].add(optionButton[14]);
+				panel[7].validate();
+			}
+		});
+		optionButton[12] = new JButton(new ImageIcon(IMAGE_FILE[6]));
+		optionButton[12].setToolTipText(text[8]);
+		optionButton[12].setPreferredSize(DIM_6);
+		optionButton[12].setBackground(COLOR_2);
+		optionButton[12].setUI(new ButtonDesign());
+		optionButton[12].addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
 				if (soundOn)
 					playSound(AUDIO_FILE[5]);
 				new FifteenPuzzle(container, thumbnailNumbers, totalNumberOfImages, index, thumbnailNumbers[index - 1],
-						soundOn, color, language, numberDisplay).display();
+						soundOn, color, gridPattern, language, numberDisplay).display();
 			}
 		});
 		if (soundOn)
-			panel[7].add(optionButton[9]);
-		else
 			panel[7].add(optionButton[10]);
-		panel[7].add(optionButton[11]);
-		optionButton[12] = new JButton(LANGUAGE[language]);
-		optionButton[12].setToolTipText(text[8]);
-		optionButton[12].setPreferredSize(DIM_8);
-		optionButton[12].setBackground(COLOR_2);
-		optionButton[12].setFont(FONT_1);
-		optionButton[12].setUI(new ButtonDesign());
-		optionButton[12].addActionListener(new ActionListener() {
+		else
+			panel[7].add(optionButton[11]);
+		panel[7].add(optionButton[12]);
+		optionButton[13] = new JButton(LANGUAGE[language]);
+		optionButton[13].setToolTipText(text[9]);
+		optionButton[13].setPreferredSize(DIM_8);
+		optionButton[13].setBackground(COLOR_2);
+		optionButton[13].setFont(FONT_1);
+		optionButton[13].setUI(new ButtonDesign());
+		optionButton[13].addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if (soundOn)
 					playSound(AUDIO_FILE[10]);
 				setLanguage();
 			}
 		});
-		panel[7].add(optionButton[12]);
-		optionButton[13] = new JButton(new ImageIcon(IMAGE_FILE[6]));
-		optionButton[13].setToolTipText(text[9]);
-		optionButton[13].setPreferredSize(DIM_6);
-		optionButton[13].setBackground(COLOR_2);
-		optionButton[13].setFont(FONT_1);
-		optionButton[13].setUI(new ButtonDesign());
-		optionButton[13].addActionListener(new ActionListener() {
+		panel[7].add(optionButton[13]);
+		optionButton[14] = new JButton(new ImageIcon(IMAGE_FILE[7]));
+		optionButton[14].setToolTipText(text[10]);
+		optionButton[14].setPreferredSize(DIM_6);
+		optionButton[14].setBackground(COLOR_2);
+		optionButton[14].setFont(FONT_1);
+		optionButton[14].setUI(new ButtonDesign());
+		optionButton[14].addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if (soundOn)
 					playSound(AUDIO_FILE[11]);
@@ -401,7 +431,7 @@ public class FifteenPuzzle extends JFrame {
 				container.validate();
 			}
 		});
-		panel[7].add(optionButton[13]);
+		panel[7].add(optionButton[14]);
 		panel[8] = new JPanel();
 		panel[8].setPreferredSize(DIM_11);
 		panel[8].setLayout(new FlowLayout(FlowLayout.RIGHT));
@@ -556,7 +586,7 @@ public class FifteenPuzzle extends JFrame {
 		for (int i = 5; i < 14; i++) {
 			optionButton[i].setToolTipText(text[i - 4]);
 		}
-		optionButton[12].setText(LANGUAGE[language]);
+		optionButton[13].setText(LANGUAGE[language]);
 	}
 
 	@SuppressWarnings("unchecked")
@@ -603,7 +633,7 @@ public class FifteenPuzzle extends JFrame {
 
 	public void selectPictures() {
 		int[] newThumbnailNumbers = new int[5];
-		JFrame frame = new JFrame(text[10]);
+		JFrame frame = new JFrame(text[11]);
 		frame.setBackground(COLOR_1);
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.setBounds(0, 0, 320, 120);
@@ -637,7 +667,7 @@ public class FifteenPuzzle extends JFrame {
 		panel2.add(comboBox5);
 		JPanel buttonsPanel = new JPanel();
 		buttonsPanel.setBackground(COLOR_1);
-		JButton confirmButton = new JButton(text[11]);
+		JButton confirmButton = new JButton(text[12]);
 		confirmButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				int[] img = new int[5];
@@ -652,16 +682,16 @@ public class FifteenPuzzle extends JFrame {
 				Arrays.sort(img);
 				if (img[0] < img[1] && img[1] < img[2] && img[2] < img[3] && img[3] < img[4]) {
 					new FifteenPuzzle(container, newThumbnailNumbers, totalNumberOfImages, 1, newThumbnailNumbers[0],
-							soundOn, color, language, numberDisplay).display();
+							soundOn, color, gridPattern, language, numberDisplay).display();
 					frame.dispose();
 				} else {
-					JOptionPane.showMessageDialog(null, text[16], text[21], JOptionPane.WARNING_MESSAGE);
+					JOptionPane.showMessageDialog(null, text[17], text[21], JOptionPane.WARNING_MESSAGE);
 					return;
 				}
 			}
 		});
 		buttonsPanel.add(confirmButton);
-		JButton cancelButton = new JButton(text[12]);
+		JButton cancelButton = new JButton(text[13]);
 		cancelButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				frame.dispose();
@@ -679,11 +709,11 @@ public class FifteenPuzzle extends JFrame {
 		int sheetIndex = 0;
 		if (color)
 			sheetIndex = 1;
-		String playerName = JOptionPane.showInputDialog(null, text[17], text[22], JOptionPane.QUESTION_MESSAGE);
+		String playerName = JOptionPane.showInputDialog(null, text[18], text[22], JOptionPane.QUESTION_MESSAGE);
 		if (playerName == null)
 			return;
 		if (playerName.length() == 0)
-			playerName = text[13];
+			playerName = text[14];
 		if (playerName.length() > 17)
 			playerName = playerName.substring(0, 17);
 		String[] data = new String[3];
@@ -695,7 +725,7 @@ public class FifteenPuzzle extends JFrame {
 			workbook = new HSSFWorkbook(fileInputStream);
 			fileInputStream.close();
 		} catch (FileNotFoundException e) {
-			JOptionPane.showMessageDialog(null, text[18], text[21], JOptionPane.WARNING_MESSAGE);
+			JOptionPane.showMessageDialog(null, text[19], text[21], JOptionPane.WARNING_MESSAGE);
 			e.printStackTrace();
 			System.exit(0);
 		} catch (IOException e) {
@@ -711,14 +741,14 @@ public class FifteenPuzzle extends JFrame {
 			workbook.write(fileOutputStream);
 			fileOutputStream.close();
 		} catch (FileNotFoundException e) {
-			JOptionPane.showMessageDialog(null, text[18], text[21], JOptionPane.WARNING_MESSAGE);
+			JOptionPane.showMessageDialog(null, text[19], text[21], JOptionPane.WARNING_MESSAGE);
 			e.printStackTrace();
 			System.exit(0);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		new FifteenPuzzle(container, thumbnailNumbers, totalNumberOfImages, index, thumbnailNumbers[index - 1], soundOn,
-				color, language, numberDisplay).display();
+				color, gridPattern, language, numberDisplay).display();
 	}
 
 	public String[][] getImageScores(int numberOfTheSelectedImage) {
@@ -751,7 +781,7 @@ public class FifteenPuzzle extends JFrame {
 			}
 			fileInputStream.close();
 		} catch (FileNotFoundException e) {
-			JOptionPane.showMessageDialog(null, text[18], text[21], JOptionPane.WARNING_MESSAGE);
+			JOptionPane.showMessageDialog(null, text[19], text[21], JOptionPane.WARNING_MESSAGE);
 			e.printStackTrace();
 			System.exit(0);
 		} catch (IOException e) {
@@ -781,7 +811,7 @@ public class FifteenPuzzle extends JFrame {
 	}
 
 	public void displayImageHighscores(String[][] imageScores) {
-		JFrame frame = new JFrame(text[14] + (numberOfTheSelectedImage + 1) + ")");
+		JFrame frame = new JFrame(text[15] + (numberOfTheSelectedImage + 1) + ")");
 		frame.setBackground(COLOR_1);
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.setBounds(0, 0, 330, 55 + NUMBER_OF_SCORES_TO_BE_DISPLAYED * 25);
@@ -850,7 +880,7 @@ public class FifteenPuzzle extends JFrame {
 
 		public void actionPerformed(ActionEvent e) {
 			new FifteenPuzzle(container, thumbnailNumbers, totalNumberOfImages, 1, thumbnailNumbers[0], soundOn, color,
-					language, numberDisplay).display();
+					gridPattern, language, numberDisplay).display();
 			if (soundOn)
 				playSound(AUDIO_FILE[6]);
 		};
@@ -861,7 +891,7 @@ public class FifteenPuzzle extends JFrame {
 
 		public void actionPerformed(ActionEvent e) {
 			new FifteenPuzzle(container, thumbnailNumbers, totalNumberOfImages, 2, thumbnailNumbers[1], soundOn, color,
-					language, numberDisplay).display();
+					gridPattern, language, numberDisplay).display();
 			if (soundOn)
 				playSound(AUDIO_FILE[6]);
 		};
@@ -872,7 +902,7 @@ public class FifteenPuzzle extends JFrame {
 
 		public void actionPerformed(ActionEvent e) {
 			new FifteenPuzzle(container, thumbnailNumbers, totalNumberOfImages, 3, thumbnailNumbers[2], soundOn, color,
-					language, numberDisplay).display();
+					gridPattern, language, numberDisplay).display();
 			if (soundOn)
 				playSound(AUDIO_FILE[6]);
 		};
@@ -883,7 +913,7 @@ public class FifteenPuzzle extends JFrame {
 
 		public void actionPerformed(ActionEvent e) {
 			new FifteenPuzzle(container, thumbnailNumbers, totalNumberOfImages, 4, thumbnailNumbers[3], soundOn, color,
-					language, numberDisplay).display();
+					gridPattern, language, numberDisplay).display();
 			if (soundOn)
 				playSound(AUDIO_FILE[6]);
 		};
@@ -894,7 +924,7 @@ public class FifteenPuzzle extends JFrame {
 
 		public void actionPerformed(ActionEvent e) {
 			new FifteenPuzzle(container, thumbnailNumbers, totalNumberOfImages, 5, thumbnailNumbers[4], soundOn, color,
-					language, numberDisplay).display();
+					gridPattern, language, numberDisplay).display();
 			if (soundOn)
 				playSound(AUDIO_FILE[6]);
 		};
@@ -986,8 +1016,21 @@ public class FifteenPuzzle extends JFrame {
 		public void paint(Graphics graphics, JComponent component) {
 			super.paint(graphics, component);
 			graphics.setFont(FONT_3);
-			graphics.setColor(Color.RED);
+			graphics.setColor(Color.WHITE);
 			graphics.drawString(String.valueOf(number), 2, 14);
+		}
+
+	}
+
+	class GridPattern extends BasicLabelUI {
+
+		public void paint(Graphics graphics, JComponent component) {
+			super.paint(graphics, component);
+			graphics.setColor(Color.WHITE);
+			for (int i = 1; i < 4; i++) {
+				graphics.drawLine(i * 128, 0, i * 128, 4 * 128);
+				graphics.drawLine(0, i * 128, 4 * 128, i * 128);
+			}
 		}
 
 	}
@@ -1001,8 +1044,8 @@ public class FifteenPuzzle extends JFrame {
 		frame.setLocationRelativeTo(null);
 		frame.setResizable(false);
 		frame.add(container);
-		new FifteenPuzzle(container, thumbnailNumbers, totalNumberOfImages, 1, thumbnailNumbers[0], true, false, 0,
-				false).display();
+		new FifteenPuzzle(container, thumbnailNumbers, totalNumberOfImages, 1, thumbnailNumbers[0], true, false, false,
+				0, false).display();
 		frame.setVisible(true);
 	}
 
