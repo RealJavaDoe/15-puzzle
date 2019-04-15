@@ -21,16 +21,14 @@ This is a more completed version than [the one written before](https://github.co
 | ![alt text](https://github.com/RealJavaDoe/15-puzzle/blob/master/images/buttons/list.png) | Select five pictures by yourself thanks to their numbers - as thumbnails - and then choose the one you want to play with |
 | ![alt text](https://github.com/RealJavaDoe/15-puzzle/blob/master/images/buttons/color.png) | Switch between black and white and color pictures: one hundred pictures each (black and white pictures are the ones displayed by default) |
 | | Save your score as soon as the game is over |
-| **25** | View the top ten scores of each selected picture |
+| **31** | View the top ten scores of each selected picture |
 | ![alt text](https://github.com/RealJavaDoe/15-puzzle/blob/master/images/buttons/gridPattern.png)| Grid the reference picture |
 | ![alt text](https://github.com/RealJavaDoe/15-puzzle/blob/master/images/buttons/soundOn.png) | Turn the sound on/off whenever you want (that is enabled by default) |
 | ![alt text](https://github.com/RealJavaDoe/15-puzzle/blob/master/images/buttons/scramble.png) | Scramble anytime |
 | **EN** | Select your language preference: English (**EN**), French (**FR**), Spanish (**ES**), Italian (**IT**) or German (**DE**) for now (English is the default language) |
 | ![alt text](https://github.com/RealJavaDoe/15-puzzle/blob/master/images/buttons/numberDisplay.png) | Show or hide each tile number (all numbers are hidden by default) |
 
-![alt text](https://github.com/RealJavaDoe/15-puzzle/blob/master/view_black_and_white_1.04.png)
-
-![alt text](https://github.com/RealJavaDoe/15-puzzle/blob/master/view_color_1.04.png)
+![alt text](https://github.com/RealJavaDoe/15-puzzle/blob/master/screenshot.png)
 
 ### About installing the software
 - Download all files and folders ([direct download link](https://github.com/RealJavaDoe/15-puzzle/archive/master.zip)).
