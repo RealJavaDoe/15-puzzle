@@ -54,6 +54,7 @@ You will get something like this on your C drive:
 ### About versions
 | Version | Release date | Details |
 | :---: | :---: | --- |
+| *2.02* | April 15, 2019 | New option: you can grid the reference picture |
 | *2.01* | April 14, 2019 | Some minor corrections |
 | *2.00* | April 13, 2019 | Added new languages: Spanish (ES), Italian (IT) and German (DE)<br>Each tile number can now be displayed without having to start the game again |
 | *1.04* | March 27, 2019 | New option: show or hide each tile number |
