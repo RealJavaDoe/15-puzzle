@@ -843,7 +843,7 @@ public class FifteenPuzzle extends JFrame {
 			}
 		};
 		table.setRowHeight(ROW_HEIGHT);
-		table.setPreferredSize(new Dimension(270, table.getRowHeight() * table.getRowCount()));
+		table.setPreferredSize(new Dimension(330, table.getRowHeight() * table.getRowCount()));
 		table.setCellSelectionEnabled(false);
 		UIManager.put("Table.alternateRowColor", COLOR_4);
 		table.setBorder(BorderFactory.createLineBorder(UIManager.getColor("Table.gridColor")));
@@ -851,7 +851,7 @@ public class FifteenPuzzle extends JFrame {
 		TableColumn column1 = table.getColumnModel().getColumn(0);
 		column1.setPreferredWidth(25);
 		TableColumn column2 = table.getColumnModel().getColumn(1);
-		column2.setPreferredWidth(190);
+		column2.setPreferredWidth(250);
 		DefaultTableCellRenderer tableCellRenderer = new DefaultTableCellRenderer();
 		tableCellRenderer.setHorizontalAlignment(SwingConstants.CENTER);
 		for (int i = 0; i < table.getColumnCount(); i++) {
