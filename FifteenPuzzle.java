@@ -587,6 +587,7 @@ public class FifteenPuzzle extends JFrame {
 			optionButton[i].setToolTipText(text[i - 4]);
 		}
 		optionButton[13].setText(LANGUAGE[language]);
+		optionButton[14].setToolTipText(text[10]);
 	}
 
 	@SuppressWarnings("unchecked")
