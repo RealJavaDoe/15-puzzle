@@ -50,7 +50,7 @@ You will get something like this on your C drive:
     - [ ] `lan`
     - [ ] `lib`
     
-- Move the files from the "extraForStock2" folder to the "stock2" folder.
+- Move the files from the `extraForStock2` folder to the `stock2` folder.
 
 ### About versions
 | Version | Release date | Details |
