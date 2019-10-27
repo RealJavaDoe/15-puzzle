@@ -44,12 +44,14 @@ You will get something like this on your C drive:
     - [ ] `data`
     - [ ] `images`
       - [ ] `buttons`
+      - [ ] `extraForStock1`
       - [ ] `extraForStock2`
       - [ ] `stock1`
       - [ ] `stock2`
     - [ ] `lan`
     - [ ] `lib`
     
+- Move the files from the `extraForStock1` folder to the `stock1` folder.
 - Move the files from the `extraForStock2` folder to the `stock2` folder.
 
 ### About versions
