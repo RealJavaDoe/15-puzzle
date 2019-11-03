@@ -19,7 +19,7 @@ This is a more completed version than [the one written before](https://github.co
 | :---: | --- |
 | ![alt text](https://github.com/RealJavaDoe/15-puzzle/blob/master/images/buttons/random.png) | Display five random pictures as thumbnails and then choose the one you want to play with |
 | ![alt text](https://github.com/RealJavaDoe/15-puzzle/blob/master/images/buttons/list.png) | Select five pictures by yourself thanks to their numbers - as thumbnails - and then choose the one you want to play with |
-| ![alt text](https://github.com/RealJavaDoe/15-puzzle/blob/master/images/buttons/color.png) | Switch between black and white and color pictures: 200 pictures each (black and white pictures are displayed by default) |
+| ![alt text](https://github.com/RealJavaDoe/15-puzzle/blob/master/images/buttons/color.png) | Switch between black and white and color pictures: up to 250 pictures each (black and white pictures are displayed by default) |
 | | Save your score as soon as the game is over |
 | **31** | View the top ten scores of each selected picture |
 | ![alt text](https://github.com/RealJavaDoe/15-puzzle/blob/master/images/buttons/gridPattern.png)| Grid the reference picture |
@@ -50,7 +50,8 @@ You will get something like this on your C drive:
       - [ ] `stock2`
     - [ ] `lan`
     - [ ] `lib`
-    
+   
+If you want more images:   
 - Move the files from the `extraForStock1` folder to the `stock1` folder.
 - Move the files from the `extraForStock2` folder to the `stock2` folder.
 
