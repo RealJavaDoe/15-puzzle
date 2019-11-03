@@ -51,7 +51,7 @@ You will get something like this on your C drive:
     - [ ] `lan`
     - [ ] `lib`
    
-If you want more images:   
+If you want more pictures:   
 - Move the files from the `extraForStock1` folder to the `stock1` folder.
 - Move the files from the `extraForStock2` folder to the `stock2` folder.
 
