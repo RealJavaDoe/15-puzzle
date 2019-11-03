@@ -51,9 +51,9 @@ You will get something like this on your C drive:
     - [ ] `lan`
     - [ ] `lib`
    
-If you want more than 100 pictures of each (black and white and color):   
-- Move the files from the `extraForStock1` folder to the `stock1` folder.
-- Move the files from the `extraForStock2` folder to the `stock2` folder.
+If you want more than 100 pictures of each type:   
+- Move the files from the `extraForStock1` folder to the `stock1` folder (black and white pictures).
+- Move the files from the `extraForStock2` folder to the `stock2` folder (color pictures).
 
 ### About versions
 | Version | Release date | Details |
