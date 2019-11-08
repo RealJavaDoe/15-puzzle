@@ -28,7 +28,7 @@ This is a more completed version than [the one written before](https://github.co
 | **EN** | Select your language preference: English (**EN**), French (**FR**), Spanish (**ES**), Italian (**IT**) or German (**DE**) for now (English is the default language) |
 | ![alt text](https://github.com/RealJavaDoe/15-puzzle/blob/master/images/buttons/numberDisplay.png) | Show or hide each tile number (all numbers are hidden by default) |
 
-![alt text](https://github.com/RealJavaDoe/15-puzzle/blob/master/screenshot.png)
+![alt text](https://github.com/RealJavaDoe/15-puzzle/blob/master/screenshot-2.03.png)
 
 ### About installing the software
 - Download all files and folders ([direct download link](https://github.com/RealJavaDoe/15-puzzle/archive/master.zip)).
