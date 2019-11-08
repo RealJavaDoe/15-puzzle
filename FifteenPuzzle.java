@@ -38,7 +38,7 @@ import org.json.simple.parser.ParseException;
 /**
  * @author Jean-Pierre PEIFFER
  * @edition 2019
- * @version 2.02
+ * @version 2.03
  * 
  *          This code works fine with Windows 10 and Java 10
  * 
@@ -69,7 +69,7 @@ public class FifteenPuzzle extends JFrame {
 	private static final Font FONT_2 = new Font("Arial", Font.BOLD, 32);
 	private static final Font FONT_3 = new Font("Arial", Font.BOLD, 16);
 	private static final int ROW_HEIGHT = 25;
-	private static final String NAME = "15-puzzle | version 2.02";
+	private static final String NAME = "15-puzzle | version 2.03";
 	private static final String[] FILE = { "C:/15-puzzle/data/scores.xls", "C:/15-puzzle/images/stock1",
 			"C:/15-puzzle/images/stock1/image", "C:/15-puzzle/images/stock2", "C:/15-puzzle/images/stock2/image",
 			"C:/15-puzzle/lan/all.json" };
