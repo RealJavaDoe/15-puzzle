@@ -13,6 +13,8 @@ Also called *le taquin* in French, *el juego del 15* or *taken* in Spanish, *il 
 ### About the code
 This is a java implementation of the 15-puzzle. The code was written specifically for Windows.
 
+![alt text](https://github.com/RealJavaDoe/15-puzzle/blob/master/screenshot-2.03.png)
+
 This is a more completed version than [the one written before](https://github.com/RealJavaDoe/some_code/blob/master/classes/MyPuzzle.java). And if the code fits in one class ([FifteenPuzzle.java](https://github.com/RealJavaDoe/15-puzzle/blob/master/FifteenPuzzle.java)), the game has several options:
 
 | Key | Intended effect |
@@ -27,8 +29,6 @@ This is a more completed version than [the one written before](https://github.co
 | ![alt text](https://github.com/RealJavaDoe/15-puzzle/blob/master/images/buttons/scramble.png) | Scramble anytime |
 | **EN** | Select your language preference: English (**EN**), French (**FR**), Spanish (**ES**), Italian (**IT**) or German (**DE**) for now (English is the default language) |
 | ![alt text](https://github.com/RealJavaDoe/15-puzzle/blob/master/images/buttons/numberDisplay.png) | Show or hide each tile number (all numbers are hidden by default) |
-
-![alt text](https://github.com/RealJavaDoe/15-puzzle/blob/master/screenshot-2.03.png)
 
 ### About installing the software
 - Download all files and folders ([direct download link](https://github.com/RealJavaDoe/15-puzzle/archive/master.zip)).
