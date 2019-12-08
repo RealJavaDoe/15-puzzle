@@ -11,19 +11,16 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.Random;
-
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
-import javax.swing.plaf.ButtonUI;
 import javax.swing.plaf.basic.BasicButtonUI;
 import javax.swing.plaf.basic.BasicLabelUI;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableColumn;
-
 import org.apache.poi.hssf.usermodel.HSSFRichTextString;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
@@ -45,29 +42,19 @@ import org.json.simple.parser.ParseException;
  */
 
 @SuppressWarnings({ "unused", "serial" })
-public class FifteenPuzzle extends JFrame {
+class FifteenPuzzle extends JFrame {
 
-	private static final Color COLOR_1 = new Color(245, 245, 245);
-	private static final Color COLOR_2 = new Color(220, 220, 220);
-	private static final Color COLOR_3 = new Color(255, 230, 230);
-	private static final Color COLOR_4 = new Color(240, 240, 240);
-	private static final Border BORDER_1 = BorderFactory.createMatteBorder(2, 2, 2, 2, COLOR_1);
-	private static final Border BORDER_2 = BorderFactory.createLoweredBevelBorder();
-	private static final Dimension DIM_1 = new Dimension(120, 512);
-	private static final Dimension DIM_2 = new Dimension(102, 102);
-	private static final Dimension DIM_3 = new Dimension(512, 512);
-	private static final Dimension DIM_4 = new Dimension(40, 512);
-	private static final Dimension DIM_5 = new Dimension(120, 45);
-	private static final Dimension DIM_6 = new Dimension(40, 40);
-	private static final Dimension DIM_7 = new Dimension(512, 45);
-	private static final Dimension DIM_8 = new Dimension(60, 40);
-	private static final Dimension DIM_9 = new Dimension(40, 45);
-	private static final Dimension DIM_10 = new Dimension(384, 45);
-	private static final Dimension DIM_11 = new Dimension(128, 45);
-	private static final Dimension DIM_12 = new Dimension(1240, 620);
-	private static final Font FONT_1 = new Font("Arial", Font.BOLD, 18);
-	private static final Font FONT_2 = new Font("Arial", Font.BOLD, 32);
-	private static final Font FONT_3 = new Font("Arial", Font.BOLD, 16);
+	private static final Color COLOR_1 = new Color(245, 245, 245), COLOR_2 = new Color(220, 220, 220),
+			COLOR_3 = new Color(255, 230, 230), COLOR_4 = new Color(240, 240, 240);
+	private static final Border BORDER_1 = BorderFactory.createMatteBorder(2, 2, 2, 2, COLOR_1),
+			BORDER_2 = BorderFactory.createLoweredBevelBorder();
+	private static final Dimension DIM_1 = new Dimension(120, 512), DIM_2 = new Dimension(102, 102),
+			DIM_3 = new Dimension(512, 512), DIM_4 = new Dimension(40, 512), DIM_5 = new Dimension(120, 45),
+			DIM_6 = new Dimension(40, 40), DIM_7 = new Dimension(512, 45), DIM_8 = new Dimension(60, 40),
+			DIM_9 = new Dimension(40, 45), DIM_10 = new Dimension(384, 45), DIM_11 = new Dimension(128, 45),
+			DIM_12 = new Dimension(1240, 620);
+	private static final Font FONT_1 = new Font("Arial", Font.BOLD, 18), FONT_2 = new Font("Arial", Font.BOLD, 32),
+			FONT_3 = new Font("Arial", Font.BOLD, 16);
 	private static final int ROW_HEIGHT = 25;
 	private static final String NAME = "15-puzzle | version 2.03";
 	private static final String[] FILE = { "C:/15-puzzle/data/scores.xls", "C:/15-puzzle/images/stock1",
@@ -84,45 +71,34 @@ public class FifteenPuzzle extends JFrame {
 			"C:/15-puzzle/images/buttons/soundOff.png", "C:/15-puzzle/images/buttons/scramble.png",
 			"C:/15-puzzle/images/buttons/numberDisplay.png" };
 	private static final String[] LANGUAGE = { "EN", "FR", "ES", "IT", "DE" };
-	private Box[] box = new Box[4];
-	private Image croppedImage;
-	private Image originalImage;
+	private final Box[] box = new Box[4];
+	private Image croppedImage, originalImage;
 	private Image[] thumbnailImage = new Image[5];
 	private ImageIcon[] thumbnailIcon = new ImageIcon[5];
 	private JButton tileButton;
 	private JButton[] optionButton = new JButton[15];
-	private JLabel emptyTileLabel;
-	private JLabel imageLabel;
+	private JLabel emptyTileLabel, imageLabel;
 	private static JPanel container = new JPanel();
 	private JPanel[] panel = new JPanel[9];
 	private String[] text = new String[23];
-	int index;
-	int totalNumberOfImages;
-	int numberOfTheSelectedImage;
-	int[] thumbnailNumbers;
-	int numberOfMoves = 0;
-	int[][] position = new int[][] { { 0, 1, 2, 3 }, { 4, 5, 6, 7 }, { 8, 9, 10, 11 }, { 12, 13, 14, 15 } };
-	int[] newOrder = new int[16];
-	boolean soundOn;
-	boolean color;
-	boolean gridPattern;
-	boolean numberDisplay;
-	int language;
-	int pictureFolder = 2;
+	private int index, totalNumberOfImages, numberOfTheSelectedImage, numberOfMoves = 0;
+	private int[] thumbnailNumbers;
+	private int[][] position = new int[][] { { 0, 1, 2, 3 }, { 4, 5, 6, 7 }, { 8, 9, 10, 11 }, { 12, 13, 14, 15 } };
+	private int[] newOrder = new int[16];
+	private boolean soundOn, color, gridPattern, numberDisplay;
+	private int language, pictureFolder = 2;
 	private static final int NUMBER_OF_SCORES_TO_BE_DISPLAYED = 10;
 	private File scoresFile = new File(FILE[0]);
 	private HSSFWorkbook workbook = new HSSFWorkbook();
-	private HSSFSheet sheet1 = workbook.createSheet();
-	private HSSFSheet sheet2 = workbook.createSheet();
-	private FileOutputStream file;
+	private HSSFSheet sheet1 = workbook.createSheet(), sheet2 = workbook.createSheet();
+	private FileOutputStream file, fileOutputStream;
 	private FileInputStream fileInputStream;
-	private FileOutputStream fileOutputStream;
 	private HSSFRow row;
 	private Cell cell;
 	private CellReference cellReference;
 
 	@SuppressWarnings("static-access")
-	public FifteenPuzzle(JPanel container, int[] thumbnailNumbers, int totalNumberOfImages, int index,
+	private FifteenPuzzle(JPanel container, int[] thumbnailNumbers, int totalNumberOfImages, int index,
 			int numberOfTheSelectedImage, boolean soundOn, boolean color, boolean gridPattern, int language,
 			boolean numberDisplay) {
 		this.container = container;
@@ -139,7 +115,7 @@ public class FifteenPuzzle extends JFrame {
 		getText(language);
 	}
 
-	public void createWorkbook() {
+	private void createWorkbook() {
 		if (!scoresFile.exists()) {
 			try {
 				file = new FileOutputStream(FILE[0]);
@@ -153,7 +129,7 @@ public class FifteenPuzzle extends JFrame {
 		}
 	}
 
-	public static int getNumberOfImages(File file) {
+	private static int getNumberOfImages(File file) {
 		if (!file.exists())
 			try {
 				throw new FileNotFoundException();
@@ -163,7 +139,7 @@ public class FifteenPuzzle extends JFrame {
 		return file.list().length;
 	}
 
-	public static int[] getRandomNumbers(int number) {
+	private static int[] getRandomNumbers(int number) {
 		if (number == 16)
 			number--;
 		int[] randomNumbers = new int[number];
@@ -180,7 +156,7 @@ public class FifteenPuzzle extends JFrame {
 		return randomNumbers;
 	}
 
-	public ImageIcon getThumbnails(int i) {
+	private ImageIcon getThumbnails(int i) {
 		if (color)
 			pictureFolder = 4;
 		thumbnailIcon[i] = new ImageIcon(FILE[pictureFolder] + thumbnailNumbers[i] + ".png");
@@ -189,7 +165,7 @@ public class FifteenPuzzle extends JFrame {
 		return thumbnailIcon[i] = new ImageIcon(thumbnailImage[i]);
 	}
 
-	public int[] getSolubleGame() {
+	private int[] getSolubleGame() {
 		boolean test = false;
 		int[] randomNumbers = getRandomNumbers(16);
 		while (test == false) {
@@ -208,7 +184,7 @@ public class FifteenPuzzle extends JFrame {
 		return randomNumbers;
 	}
 
-	public void display() {
+	private void display() {
 		if (color)
 			pictureFolder = 4;
 		container.setBackground(COLOR_1);
@@ -460,7 +436,7 @@ public class FifteenPuzzle extends JFrame {
 		container.validate();
 	}
 
-	public JPanel getScrambledImage() {
+	private JPanel getScrambledImage() {
 		int[] randomNumbers = getSolubleGame();
 		for (int i = 0; i < 15; i++) {
 			newOrder[i] = randomNumbers[i];
@@ -490,7 +466,7 @@ public class FifteenPuzzle extends JFrame {
 		return panel[3];
 	}
 
-	public int getRow(int newOrder) {
+	private int getRow(int newOrder) {
 		int position;
 		switch (newOrder) {
 		case 4:
@@ -518,7 +494,7 @@ public class FifteenPuzzle extends JFrame {
 		return position;
 	}
 
-	public int getColumn(int newOrder) {
+	private int getColumn(int newOrder) {
 		int position = 0;
 		switch (newOrder) {
 		case 1:
@@ -546,12 +522,12 @@ public class FifteenPuzzle extends JFrame {
 		return position;
 	}
 
-	public int getTileNumber(int row, int column) {
+	private int getTileNumber(int row, int column) {
 		int number = 4 * row + column + 1;
 		return number;
 	}
 
-	public JPanel getNumberedTiles() {
+	private JPanel getNumberedTiles() {
 		int row, column;
 		for (int i = 0; i < 16; i++) {
 			if (newOrder[i] == 15) {
@@ -574,7 +550,7 @@ public class FifteenPuzzle extends JFrame {
 		return panel[3];
 	}
 
-	public void setLanguage() {
+	private void setLanguage() {
 		if (language != (LANGUAGE.length - 1))
 			language++;
 		else
@@ -591,7 +567,7 @@ public class FifteenPuzzle extends JFrame {
 	}
 
 	@SuppressWarnings("unchecked")
-	public String[] getText(int indexLang) {
+	private String[] getText(int indexLang) {
 		int i = 0;
 		JSONParser parser = new JSONParser();
 		try {
@@ -613,14 +589,14 @@ public class FifteenPuzzle extends JFrame {
 		return text;
 	}
 
-	public void switchNumbers(int indexStartTile, int indexFinishTile) {
+	private void switchNumbers(int indexStartTile, int indexFinishTile) {
 		int temp;
 		temp = newOrder[indexStartTile];
 		newOrder[indexStartTile] = newOrder[indexFinishTile];
 		newOrder[indexFinishTile] = temp;
 	}
 
-	public boolean isOver() {
+	private boolean isOver() {
 		int counter = 0;
 		boolean test = false;
 		for (int i = 0; i < 15; i++) {
@@ -632,7 +608,7 @@ public class FifteenPuzzle extends JFrame {
 		return test;
 	}
 
-	public void selectPictures() {
+	private void selectPictures() {
 		int[] newThumbnailNumbers = new int[5];
 		JFrame frame = new JFrame(text[11]);
 		frame.setBackground(COLOR_1);
@@ -705,7 +681,7 @@ public class FifteenPuzzle extends JFrame {
 		frame.setVisible(true);
 	}
 
-	public void saveAScore(int numberOfTheSelectedImage, int numberOfMoves) {
+	private void saveAScore(int numberOfTheSelectedImage, int numberOfMoves) {
 		HSSFSheet sheet;
 		int sheetIndex = 0;
 		if (color)
@@ -752,7 +728,7 @@ public class FifteenPuzzle extends JFrame {
 				color, gridPattern, language, numberDisplay).display();
 	}
 
-	public String[][] getImageScores(int numberOfTheSelectedImage) {
+	private String[][] getImageScores(int numberOfTheSelectedImage) {
 		HSSFSheet sheet;
 		int sheetIndex = 0;
 		if (color)
@@ -811,11 +787,11 @@ public class FifteenPuzzle extends JFrame {
 		return imageScores;
 	}
 
-	public void displayImageHighscores(String[][] imageScores) {
+	private void displayImageHighscores(String[][] imageScores) {
 		JFrame frame = new JFrame(text[15] + (numberOfTheSelectedImage + 1) + ")");
 		frame.setBackground(COLOR_1);
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		frame.setBounds(0, 0, 330, 55 + NUMBER_OF_SCORES_TO_BE_DISPLAYED * 25);
+		frame.setBounds(0, 0, 390, 55 + NUMBER_OF_SCORES_TO_BE_DISPLAYED * 25);
 		frame.setLocationRelativeTo(null);
 		frame.setResizable(false);
 		String[] header = { "", "", "" };
@@ -864,7 +840,7 @@ public class FifteenPuzzle extends JFrame {
 		frame.setVisible(true);
 	}
 
-	public void playSound(String sound) {
+	private void playSound(String sound) {
 		Clip clip = null;
 		File file = new File(sound);
 		try {
