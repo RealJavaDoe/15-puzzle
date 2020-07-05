@@ -15,7 +15,7 @@ This is a java implementation of the 15-puzzle. The code was written specificall
 
 ![alt text](https://github.com/RealJavaDoe/15-puzzle/blob/master/screenshot-2.03.png)
 
-This is a more completed version than [the one written before](https://github.com/RealJavaDoe/some_code/blob/master/classes/MyPuzzle.java). And if the code fits in one class ([FifteenPuzzle.java](https://github.com/RealJavaDoe/15-puzzle/blob/master/FifteenPuzzle.java)), the game has several options:
+This is a more completed version than [the one written before](https://github.com/RealJavaDoe/some_code/blob/master/classes/MyPuzzle.java). And if the code fits in [one class] (https://github.com/RealJavaDoe/15-puzzle/blob/master/FifteenPuzzle.java)), the game has several options:
 
 | Key | Intended effect |
 | :---: | --- |
@@ -63,6 +63,6 @@ You will get something like this on your C drive:
 | *1.00* | March 15, 2019 | Soft launch |
 
 ### About copyright
-All pictures are from [blackwhite.pictures](https://blackwhite.pictures) and [pixabay.com](https://pixabay.com) (thank you both). I only resized and cropped each picture - to get the correct size of 512 x 512 pixels - before uploading and sharing.
+All pictures are from [blackwhite.pictures](https://blackwhite.pictures) - now closed - and [pixabay.com](https://pixabay.com) (thank you both). I only resized and cropped each picture - to get the correct size of 512 x 512 pixels - before uploading and sharing.
 
 See you next code!
