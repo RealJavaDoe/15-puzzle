@@ -15,7 +15,7 @@ This is a java implementation of the 15-puzzle. The code was written specificall
 
 ![alt text](https://github.com/RealJavaDoe/15-puzzle/blob/master/screenshot-2.03.png)
 
-This is a more completed version than [the one written before](https://github.com/RealJavaDoe/some_code/blob/master/classes/MyPuzzle.java). And if the code fits in [one class] (https://github.com/RealJavaDoe/15-puzzle/blob/master/FifteenPuzzle.java), the game has several options:
+This is a more completed version than [the one written before](https://github.com/RealJavaDoe/some_code/blob/master/classes/MyPuzzle.java). And if the code fits in [one class](https://github.com/RealJavaDoe/15-puzzle/blob/master/FifteenPuzzle.java), the game has several options:
 
 | Key | Intended effect |
 | :---: | --- |
