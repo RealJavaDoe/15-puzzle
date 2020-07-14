@@ -63,6 +63,6 @@ You will get something like this on your C drive:
 | *1.00* | March 15, 2019 | Soft launch |
 
 ### About copyright
-All pictures are from [blackwhite.pictures](https://blackwhite.pictures) - now closed -, [pixabay.com](https://pixabay.com) and [Unsplash](https://unsplash.com/) (thank you!). I only resized and cropped each picture - to get the correct size of 512 x 512 pixels - before uploading and sharing.
+All pictures are from [blackwhite.pictures](https://blackwhite.pictures) - now closed -, [pixabay.com](https://pixabay.com) and [unsplash.com](https://unsplash.com/) (thank you!). I only resized and cropped each picture - to get the correct size of 512 x 512 pixels - before uploading and sharing.
 
 See you next code!
