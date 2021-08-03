@@ -52,7 +52,6 @@ You will get something like this on your C drive:
 ### About versions
 | Version | Release date | Details |
 | :---: | :---: | --- |
-| *2.04* | August 3, 2021 | 1,000 pictures |
 | *2.03* | November 8, 2019 | Minor correction<br>Added a lot of pictures |
 | *2.02* | April 15, 2019 | New option: you can grid the reference picture |
 | *2.01* | April 14, 2019 | Some minor corrections |
